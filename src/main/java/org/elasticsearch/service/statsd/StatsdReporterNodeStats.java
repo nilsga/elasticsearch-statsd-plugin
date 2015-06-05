@@ -140,6 +140,9 @@ public class StatsdReporterNodeStats extends StatsdReporter {
 	private void sendNodeJvmStats(JvmStats jvmStats) {
 		String prefix = this.getPrefix("jvm");
 
+		// uptime
+		this.sendGauge(prefix + ".process", "uptime_in_millis", jvmStats.uptime().getMillis());
+
 		// mem
 		this.sendGauge(prefix + ".mem", "heap_used_percent", jvmStats.mem().heapUsedPercent());
 		this.sendGauge(prefix + ".mem", "heap_used_in_bytes", jvmStats.mem().heapUsed().bytes());
